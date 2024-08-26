@@ -13,7 +13,7 @@ struct RickMortyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainScreenView(viewModel: MainCharacterListViewModel())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
