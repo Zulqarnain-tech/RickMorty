@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		034D57D42C7E0DF8003860F2 /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034D57D32C7E0DF8003860F2 /* CharacterDetailViewModel.swift */; };
 		035507AF2C7C7BC2005BF249 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 035507AE2C7C7BC2005BF249 /* Networking */; };
 		035507B12C7C7BC5005BF249 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 035507B02C7C7BC5005BF249 /* DesignSystem */; };
 		035507B62C7D09D0005BF249 /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 035507B52C7D09D0005BF249 /* Data */; };
 		035507B92C7D09F2005BF249 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 035507B82C7D09F2005BF249 /* Domain */; };
+		035507BC2C7D0A55005BF249 /* LocalPersistance in Frameworks */ = {isa = PBXBuildFile; productRef = 035507BB2C7D0A55005BF249 /* LocalPersistance */; };
 		036A80F32C7B3E6A00509779 /* RickMortyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036A80F22C7B3E6A00509779 /* RickMortyApp.swift */; };
 		036A80F52C7B3E6A00509779 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036A80F42C7B3E6A00509779 /* ContentView.swift */; };
 		036A80F72C7B3E6C00509779 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 036A80F62C7B3E6C00509779 /* Assets.xcassets */; };
@@ -49,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		034D57D32C7E0DF8003860F2 /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
 		035507AB2C7C7A6F005BF249 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Networking; sourceTree = "<group>"; };
 		035507AC2C7C7AE3005BF249 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		035507AD2C7C7BA9005BF249 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
@@ -87,6 +90,7 @@
 				035507B12C7C7BC5005BF249 /* DesignSystem in Frameworks */,
 				035507B92C7D09F2005BF249 /* Domain in Frameworks */,
 				035507B62C7D09D0005BF249 /* Data in Frameworks */,
+				035507BC2C7D0A55005BF249 /* LocalPersistance in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				036A81282C7B435800509779 /* CharacterDetailScreen.swift */,
+				034D57D32C7E0DF8003860F2 /* CharacterDetailViewModel.swift */,
 			);
 			path = CharacterDetailScreen;
 			sourceTree = "<group>";
@@ -273,6 +278,7 @@
 				035507B02C7C7BC5005BF249 /* DesignSystem */,
 				035507B52C7D09D0005BF249 /* Data */,
 				035507B82C7D09F2005BF249 /* Domain */,
+				035507BB2C7D0A55005BF249 /* LocalPersistance */,
 			);
 			productName = RickMorty;
 			productReference = 036A80EF2C7B3E6A00509779 /* RickMorty.app */;
@@ -395,6 +401,7 @@
 				036A81392C7B5A3800509779 /* SliderView.swift in Sources */,
 				036A813B2C7B5D4A00509779 /* MainCharacterListViewModel.swift in Sources */,
 				036A813D2C7B5FAC00509779 /* SegmentView.swift in Sources */,
+				034D57D42C7E0DF8003860F2 /* CharacterDetailViewModel.swift in Sources */,
 				036A81312C7B506100509779 /* SearchBarView.swift in Sources */,
 				036A81362C7B528A00509779 /* Image+Extension.swift in Sources */,
 				036A80F52C7B3E6A00509779 /* ContentView.swift in Sources */,
@@ -753,6 +760,10 @@
 		035507B82C7D09F2005BF249 /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Domain;
+		};
+		035507BB2C7D0A55005BF249 /* LocalPersistance */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LocalPersistance;
 		};
 /* End XCSwiftPackageProductDependency section */
 

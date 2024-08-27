@@ -21,7 +21,7 @@ struct SearchBarView: View, KeyboardReadable{
 
         HStack {
             
-            TextField(placeHolder, text: $searchText)
+            TextField("", text: $searchText, prompt: Text(placeHolder).foregroundStyle(.white))
                 .onReceive(keyboardPublisher) { newIsKeyboardVisible in
                                 debugPrint("Is keyboard visible? ", newIsKeyboardVisible)
                     NotificationCenter.default.post(name: .toggleUIComponentVisibility, object: nil, userInfo: ["isVisible": !newIsKeyboardVisible])
@@ -33,7 +33,7 @@ struct SearchBarView: View, KeyboardReadable{
                 
                 .frame(height: 30)
                 .padding(7)
-                .padding(.horizontal, 32)
+                //.padding(.horizontal, 32)
                 .background(Color.tunaColor)
                 .cornerRadius(10)
                 .keyboardType(.webSearch)
@@ -54,9 +54,11 @@ struct SearchBarView: View, KeyboardReadable{
                                         .foregroundColor(.gray)
                                         .padding(.trailing, 20)
                                 }
+                                
                             }
  
                     }
+                        .padding(.trailing)
                 )
             
             if isEditing {

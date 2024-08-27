@@ -3,8 +3,8 @@ import SwiftUI
 extension Color {
     
     //MARK: - Custom Colors
-    static let primaryBGColor = Color("PrimaryBGColor")
-    static let pearColor = Color("PearColor")
-    static let tallPoppyColor = Color("TallPoppyColor")
-    static let tunaColor = Color("TunaColor")
+    public static let primaryBGColor = Color("PrimaryBGColor")
+    public static let pearColor = Color("PearColor")
+    public static let tallPoppyColor = Color("TallPoppyColor")
+    public static let tunaColor = Color("TunaColor")
 }

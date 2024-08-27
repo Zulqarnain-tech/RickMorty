@@ -4,5 +4,12 @@
 <dict>
 	<key>BASE_URL</key>
 	<string>https://rickandmortyapi.com/api</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Montserrat-Black.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+		<string>Montserrat-Medium.ttf</string>
+		<string>Montserrat-SemiBold.ttf</string>
+	</array>
 </dict>
 </plist>

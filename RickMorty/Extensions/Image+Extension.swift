@@ -19,5 +19,6 @@ extension Image {
     static let ic_glass = Image("ic_glass")
     static let ic_chevDown = Image("ic_chevDown")
     static let ic_chevUp = Image("ic_chevUp")
+    static let ic_back = Image("ic_back")
     
 }
