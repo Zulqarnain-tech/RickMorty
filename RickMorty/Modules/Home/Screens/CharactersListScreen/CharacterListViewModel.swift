@@ -1,0 +1,144 @@
+import Foundation
+import DesignSystem
+import Domain
+import Dependencies
+
+final class CharacterListViewModel: ViewModel {
+    struct State: Equatable {
+        var characterData: CharacterDataEntity?
+        var charactersList: [Result] = []
+        var error: Toast?
+        var isLoading = false
+        var sliderImages: [String] = ["img_home1", "img_home2", "img_home3"]
+    }
+
+    enum Action {
+        case onAppear
+        case characterTapped(Result)
+    }
+
+    @Published var state: State  = .init()
+    
+    @Dependency(\.characterDataUseCase)
+    private var characterDataUseCase
+    
+    @Dependency(\.coreDataService)
+    private var coreDataService
+    
+    
+
+    private let onCharacterSelected: (Result) -> Void
+
+    
+
+    @Published var searchText: String = ""
+    @Published var isEdit: Bool = false
+    @Published var selectedStatus: CharacterStatusSegment = .alive {
+        didSet {
+            switch selectedStatus {
+            case .alive:
+                if selectedSpecies == .robot{
+                    selectedSpecies = .alien
+                }
+               debugPrint("call alive")
+            case .dead:
+                debugPrint("call dead")
+
+            }
+            Task{
+                await fetchCharacterDataRemote( name: "", species: selectedSpecies.title, status: selectedStatus.title)
+            }
+        }
+    }
+    @Published var selectedSpecies: CharacterSpeciesSegment = .alien {
+        didSet {
+            switch selectedSpecies {
+            case .alien:
+               debugPrint("call debugPrint")
+            case .human:
+                debugPrint("call human")
+            case .robot:
+                if selectedStatus == .alive{
+                    selectedStatus = .dead
+                }
+                debugPrint("call robot")
+            }
+            Task{
+                await fetchCharacterDataRemote( name: "", species: selectedSpecies.title, status: selectedStatus.title)
+            }
+        }
+    }
+    
+    @Published var firstSeenIn: Bool = false
+    @Published var knownLocation: Bool = false
+    @Published var tappedCharacter: Int = -1
+    //
+
+    init(
+        onAstronomySelected: @escaping (Result) -> Void
+    ) {
+        self.onCharacterSelected = onAstronomySelected
+    }
+
+    func dispatch(_ action: Action) async {
+        switch action {
+        case .onAppear:
+            await fetchCharacterData()
+        case .characterTapped(let character):
+            await select(character)
+        }
+    }
+
+
+    func fetchCharacterData() async {
+        
+        let characterData: CharacterDataEntity? =  coreDataService.fetch()
+        if let characterData = characterData, characterData.results.count != 0 {
+            await fillCharactersList(characterData.results)
+        } else {
+            if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+                await fetchCharacterDataRemote( name: searchText, species: selectedSpecies.title, status: selectedStatus.title)
+            }else{
+                await fetchCharacterDataRemote( name: searchText, species: selectedSpecies.isEmpty, status: selectedStatus.isEmpty)
+            }
+        }
+    }
+    
+    private func fetchCharacterDataRemote(name: String?,species: String?, status: String?) async {
+        await handleLoading(true)
+
+        do {
+            let characterData = try await characterDataUseCase.getcharactersList(name: name, species: species, status: status)
+            await handleLoading(false)
+            await fillCharactersList(characterData.results)
+            coreDataService.create(record: characterData)
+        } catch let error {
+            await handleLoading(false)
+            await handleError(error)
+        }
+    }
+
+    
+
+    @MainActor
+    private func handleLoading(_ isLoading: Bool) {
+        state.isLoading = isLoading
+    }
+    @MainActor
+    private func handleError(_ error: Error) {
+        guard let error = error as? CharacterListErrorEntity else {
+            state.error = .init(style: .error, message: error.localizedDescription)
+            return
+        }
+        state.error = .init(style: .error, message: error.description)
+    }
+
+    @MainActor private func select(_ character: Result) {
+        onCharacterSelected(character)
+    }
+    
+     @MainActor
+     private func fillCharactersList(_ characters: [Result]) {
+         state.charactersList = characters
+     }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23B74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CharacterDataCD" representedClassName="CharacterDataCD" syncable="YES">
+        <relationship name="toInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InfoCD" inverseName="toCharacterData" inverseEntity="InfoCD"/>
+        <relationship name="toResult" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ResultCD" inverseName="toCharacterData" inverseEntity="ResultCD"/>
+    </entity>
+    <entity name="InfoCD" representedClassName="InfoCD" syncable="YES">
+        <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="next" optional="YES" attributeType="String"/>
+        <attribute name="pages" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="prev" optional="YES" attributeType="String"/>
+        <relationship name="toCharacterData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CharacterDataCD" inverseName="toInfo" inverseEntity="CharacterDataCD"/>
+    </entity>
+    <entity name="LocationCD" representedClassName="LocationCD" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="locationInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ResultCD" inverseName="location" inverseEntity="ResultCD"/>
+        <relationship name="originInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ResultCD" inverseName="origin" inverseEntity="ResultCD"/>
+    </entity>
+    <entity name="ResultCD" representedClassName="ResultCD" syncable="YES">
+        <attribute name="created" optional="YES" attributeType="String"/>
+        <attribute name="episode" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName"/>
+        <attribute name="gender" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="species" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocationCD" inverseName="locationInfo" inverseEntity="LocationCD"/>
+        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocationCD" inverseName="originInfo" inverseEntity="LocationCD"/>
+        <relationship name="toCharacterData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CharacterDataCD" inverseName="toResult" inverseEntity="CharacterDataCD"/>
+    </entity>
+</model>
