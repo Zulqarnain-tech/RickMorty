@@ -1,13 +1,10 @@
 import XCTest
+import LocalPersistanceMock
+import Domain
 @testable import LocalPersistance
 //@testable import LocalPersistanceMock
 
 
-final class DataTests: XCTestCase {
-    func testExample() throws {}
-}
-
-/*
  final class LocalPersistenceTests: XCTestCase {
 
      // Define a sample CharacterDataEntity for testing
@@ -76,4 +73,4 @@ final class DataTests: XCTestCase {
      
      // Additional test cases can be added as needed
  }
- */
+ 

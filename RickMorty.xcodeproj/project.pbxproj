@@ -43,7 +43,7 @@
 		946CB6A12BF4821F00F87F12 /* DependencyRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946CB6A02BF4821F00F87F12 /* DependencyRegistration.swift */; };
 		946CB6A52BF4823700F87F12 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 946CB6A42BF4823700F87F12 /* Dependencies */; };
 		946CDEAC2C01B31F00939997 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946CDEAB2C01B31F00939997 /* Util.swift */; };
-		946CDEB22C01BE1800939997 /* FeatureOneAstronomyListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946CDEB12C01BE1800939997 /* FeatureOneAstronomyListViewModelTests.swift */; };
+		946CDEB22C01BE1800939997 /* CharacterListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946CDEB12C01BE1800939997 /* CharacterListViewModelTests.swift */; };
 		946CDEB62C01C0D000939997 /* CharacterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946CDEB52C01C0D000939997 /* CharacterDetailsViewModel.swift */; };
 		946CDEC62C01C56200939997 /* LocalPersistance in Frameworks */ = {isa = PBXBuildFile; productRef = 946CDEC52C01C56200939997 /* LocalPersistance */; };
 		946CDEC82C01C56600939997 /* LocalPersistanceMock in Frameworks */ = {isa = PBXBuildFile; productRef = 946CDEC72C01C56600939997 /* LocalPersistanceMock */; };
@@ -102,7 +102,7 @@
 		94687C822BF0ADDE0030A659 /* View+NavigationBarHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+NavigationBarHidden.swift"; sourceTree = "<group>"; };
 		946CB6A02BF4821F00F87F12 /* DependencyRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyRegistration.swift; sourceTree = "<group>"; };
 		946CDEAB2C01B31F00939997 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		946CDEB12C01BE1800939997 /* FeatureOneAstronomyListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureOneAstronomyListViewModelTests.swift; sourceTree = "<group>"; };
+		946CDEB12C01BE1800939997 /* CharacterListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModelTests.swift; sourceTree = "<group>"; };
 		946CDEB32C01C09A00939997 /* LocalPersistance */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LocalPersistance; sourceTree = "<group>"; };
 		946CDEB52C01C0D000939997 /* CharacterDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -338,7 +338,7 @@
 		946CDEB02C01BDFA00939997 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				946CDEB12C01BE1800939997 /* FeatureOneAstronomyListViewModelTests.swift */,
+				946CDEB12C01BE1800939997 /* CharacterListViewModelTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -528,7 +528,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				946CDEB22C01BE1800939997 /* FeatureOneAstronomyListViewModelTests.swift in Sources */,
+				946CDEB22C01BE1800939997 /* CharacterListViewModelTests.swift in Sources */,
 				94687C2E2BF0A0DB0030A659 /* iOSAppMVVMTemplateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -767,7 +767,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RickMorty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RickMorty";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rick Morty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Rick Morty";
 			};
 			name = Debug;
 		};
@@ -786,7 +786,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RickMorty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RickMorty";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rick Morty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Rick Morty";
 			};
 			name = Release;
 		};

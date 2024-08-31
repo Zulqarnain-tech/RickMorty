@@ -3,7 +3,7 @@ import Domain
 import DomainMock
 
 final class NasaPlanetsUseCaseTests: XCTestCase {
-    func testWhenFetchAstronomiesSuccess_shouldReturnAstronomiesList() async  {
+    func testWhenFetchCharactersSuccess_shouldReturnCharactersList() async  {
         let sut = MockCharactersListUseCase(charactersData: .mock)
 
         do {
@@ -14,15 +14,15 @@ final class NasaPlanetsUseCaseTests: XCTestCase {
             if let character = characters.results.first {
                 XCTAssertEqual(character.name, "Rick Sanchez")
             } else {
-                XCTFail("Astronomies array shouldn't be empty")
+                XCTFail("Characters array shouldn't be empty")
             }
 
         } catch {
-            XCTFail("Fetching astronomies should return results")
+            XCTFail("Fetching Characters should return results")
         }
     }
 
-    func testWhenFetchAstronomiesFailure_shouldReturnAstronomiesList() async  {
+    func testWhenFetchCharactersFailure_shouldReturnCharactersList() async  {
         let sut = MockCharactersListUseCase(error: .general)
 
         do {

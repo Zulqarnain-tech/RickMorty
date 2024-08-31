@@ -17,8 +17,8 @@ final class MainCoordinator: Coordinator {
     func begin() {
         let vc = MainScreenView(
             viewModel: CharacterListViewModel(
-                onAstronomySelected: {
-                    self.showAstronomyDetails($0)
+                onCharacterSelected: {
+                    self.showCharacterDetails($0)
                 }
             )
         ).hosted
@@ -26,7 +26,7 @@ final class MainCoordinator: Coordinator {
         pushViewController(vc, animated: true)
     }
 
-    func showAstronomyDetails(_ character: Result) {
+    func showCharacterDetails(_ character: Result) {
         let vc = CharacterDetailScreen(
             viewModel: CharacterDetailsViewModel(character: character, onMoveBack: {
                 self.popNavigationView()

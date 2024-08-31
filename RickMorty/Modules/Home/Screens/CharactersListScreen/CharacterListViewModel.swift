@@ -4,6 +4,8 @@ import Domain
 import Dependencies
 
 final class CharacterListViewModel: ViewModel {
+    
+    
     struct State: Equatable {
         var characterData: CharacterDataEntity?
         var originalCharacterList: [Result] = []
@@ -11,14 +13,13 @@ final class CharacterListViewModel: ViewModel {
         var isLoading = false
         var sliderImages: [String] = ["img_home1", "img_home2", "img_home3"]
     }
-
     enum Action {
         case onAppear
         case characterTapped(Result)
     }
 
-    @Published var state: State  = .init()
-    
+   
+    // MARK: - Dependencies
     @Dependency(\.characterDataUseCase)
     private var characterDataUseCase
     
@@ -26,12 +27,11 @@ final class CharacterListViewModel: ViewModel {
     private var coreDataService
     
     
-
-    private let onCharacterSelected: (Result) -> Void
-
+    // MARK: - Publishers
+    @Published var state: State  = .init()
+    @Published var movedFromDetailScreen: Bool = false
     @Published var charactersList: [Result] = []
     @Published var lastKnownLocation: [String] = []
-    @Published var firstSeenList: [String] = []
     @Published var selectedKnown: String = "All"{
         didSet{
             if selectedKnown == "All"{
@@ -39,10 +39,20 @@ final class CharacterListViewModel: ViewModel {
             }else{
                 self.charactersList = self.state.originalCharacterList.filter { $0.location.name == selectedKnown }
             }
+           
+        }
+    }
+    @Published var firstSeenList: [String] = []
+    @Published var selectedFirstSeen: String = ""{
+        didSet{
+            if selectedFirstSeen == ""{
+                charactersList = self.state.originalCharacterList
+            }else{
+                self.charactersList = self.state.originalCharacterList.filter { $0.episode[0].contains(selectedFirstSeen.replacingOccurrences(of: "Episode ", with: "")) }
+            }
             
         }
     }
-    @Published var selectedFirstSeen: String = ""
     @Published var searchText: String = ""
     @Published var isEdit: Bool = false
     @Published var selectedStatus: CharacterStatusSegment = .alive {
@@ -80,16 +90,19 @@ final class CharacterListViewModel: ViewModel {
             }
         }
     }
-    
     @Published var firstSeenIn: Bool = false
     @Published var knownLocation: Bool = false
     @Published var tappedCharacter: Int = -1
-    //
-
+    
+    
+    // MARK: - Variables
+    private let onCharacterSelected: (Result) -> Void
+    
+    
     init(
-        onAstronomySelected: @escaping (Result) -> Void
+        onCharacterSelected: @escaping (Result) -> Void
     ) {
-        self.onCharacterSelected = onAstronomySelected
+        self.onCharacterSelected = onCharacterSelected
     }
 
     func dispatch(_ action: Action) async {
@@ -97,50 +110,14 @@ final class CharacterListViewModel: ViewModel {
         case .onAppear:
             await fetchCharacterData()
         case .characterTapped(let character):
+            self.movedFromDetailScreen = true
             await select(character)
         }
     }
 
 
-    func fetchCharacterData() async {
-        
-        let characterData: CharacterDataEntity? =  coreDataService.fetch()
-        if let characterData = characterData, characterData.results.count != 0 {
-            await fillCharactersList(characterData.results)
-            resetLastKnownLocationFilter(characterData: characterData)
-        } else {
-            if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
-                await fetchCharacterDataRemote( name: searchText, species: selectedSpecies.title, status: selectedStatus.title)
-            }else{
-                await fetchCharacterDataRemote( name: searchText, species: selectedSpecies.isEmpty, status: selectedStatus.isEmpty)
-            }
-        }
-    }
     
-    private func fetchCharacterDataRemote(name: String?,species: String?, status: String?) async {
-        await handleLoading(true)
 
-        do {
-            let characterData = try await characterDataUseCase.getcharactersList(name: name, species: species, status: status)
-            await handleLoading(false)
-            await fillCharactersList(characterData.results)
-            coreDataService.create(record: characterData)
-            resetLastKnownLocationFilter(characterData: characterData)
-            
-        } catch let error {
-            await handleLoading(false)
-            await handleError(error)
-        }
-    }
-
-    private func resetLastKnownLocationFilter(characterData: CharacterDataEntity){
-        DispatchQueue.main.async {
-            self.lastKnownLocation = Array(Set(characterData.results.map { $0.location.name }))
-            self.lastKnownLocation.insert("All", at: 0)
-            self.selectedKnown = "All"
-            self.knownLocation = false
-        }
-    }
 
     @MainActor
     private func handleLoading(_ isLoading: Bool) {
@@ -168,4 +145,60 @@ final class CharacterListViewModel: ViewModel {
              
          
      }
+}
+
+
+// MARK: - Fetch Data From Local/Remote Source
+extension CharacterListViewModel{
+    func fetchCharacterData(searchedQuery: Bool = false) async {
+        
+        let characterData: CharacterDataEntity? =  coreDataService.fetch()
+        if let characterData = characterData, characterData.results.count != 0, !searchedQuery {
+            await fillCharactersList(characterData.results)
+            resetLastKnownLocationFilter(characterData: characterData)
+            resetFirstSeenFilter(characterData: characterData)
+        } else {
+            if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+                await fetchCharacterDataRemote( name: searchText, species: selectedSpecies.title, status: selectedStatus.title)
+            }else{
+                await fetchCharacterDataRemote( name: searchText, species: selectedSpecies.isEmpty, status: selectedStatus.isEmpty)
+            }
+        }
+    }
+    private func fetchCharacterDataRemote(name: String?,species: String?, status: String?) async {
+        await handleLoading(true)
+
+        do {
+            let characterData = try await characterDataUseCase.getcharactersList(name: name, species: species, status: status)
+            await handleLoading(false)
+            await fillCharactersList(characterData.results)
+            coreDataService.create(record: characterData)
+            resetLastKnownLocationFilter(characterData: characterData)
+            resetFirstSeenFilter(characterData: characterData)
+            
+        } catch let error {
+            await handleLoading(false)
+            await handleError(error)
+        }
+    }
+}
+
+// MARK: - Reset Filters
+extension CharacterListViewModel{
+    private func resetLastKnownLocationFilter(characterData: CharacterDataEntity){
+        DispatchQueue.main.async {
+            self.lastKnownLocation = Array(Set(characterData.results.map { $0.location.name }))
+            self.lastKnownLocation.insert("All", at: 0)
+            self.selectedKnown = "All"
+            self.knownLocation = false
+        }
+    }
+    
+    private func resetFirstSeenFilter(characterData: CharacterDataEntity){
+        DispatchQueue.main.async {
+            self.firstSeenList = Array(Set(characterData.results.compactMap({$0.episode[0].replacingOccurrences(of: "https://rickandmortyapi.com/api/episode/", with: "Episode ")})))
+            self.selectedFirstSeen = ""
+            self.firstSeenIn = false
+        }
+    }
 }

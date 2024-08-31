@@ -23,7 +23,7 @@ struct MainScreenView: View {
                     SearchBarView(searchText: $viewModel.searchText, isEditing: $viewModel.isEdit, goAction: {
                         if viewModel.searchText.count != 0{
                             Task{
-                                await self.viewModel.fetchCharacterData()
+                                await self.viewModel.fetchCharacterData(searchedQuery: true)
                             }
                         }
                     }, cancelAction: {
@@ -111,7 +111,12 @@ struct MainScreenView: View {
                 .background(Color.primaryBGColor)
                 .toastView(toast: $viewModel.state.error)
                 .task {
-                    await viewModel.dispatch(.onAppear)
+                    if !viewModel.movedFromDetailScreen{
+                        await viewModel.dispatch(.onAppear)
+                    }else{
+                        viewModel.movedFromDetailScreen = true
+                    }
+                    
                 }
         }
     }
