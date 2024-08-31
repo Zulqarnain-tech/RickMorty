@@ -1,3 +1,2 @@
 BASE_URL = https://rickandmortyapi.com/api
-API_KEY = 8shG6QykZe40rAyVdK373TOcw9hUw3DVD1VdtFrY
 ENVIRONMENT = prod

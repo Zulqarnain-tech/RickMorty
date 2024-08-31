@@ -42,7 +42,7 @@ extension DependencyValues {
 
 // MARK: -
 
-
+/*
 extension CoreDataService: DependencyKey {
     public static var liveValue: CoreDataService {
         CoreDataService()
@@ -59,4 +59,28 @@ extension DependencyValues {
         get { self[CoreDataService.self] }
         set { self[CoreDataService.self] = newValue }
     }
+}
+*/
+
+enum LocalServiceKey: TestDependencyKey {
+    static var testValue: any LocalServiceProtocol {
+        MockCoreDataService()
+    }
+
+    static var previewValue: any LocalServiceProtocol {
+        MockCoreDataService()
+    }
+}
+extension LocalServiceKey: DependencyKey {
+    static var liveValue: any LocalServiceProtocol {
+        CoreDataService()
+    }
+}
+
+extension DependencyValues {
+    var localService: any LocalServiceProtocol {
+        get { self[LocalServiceKey.self] }
+        set { self[LocalServiceKey.self] = newValue }
+    }
+    
 }

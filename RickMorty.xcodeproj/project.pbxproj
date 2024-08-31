@@ -150,13 +150,6 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		03B29F142C81F3E500C5AA03 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
 		940C549D2BF1DA6E007A26A2 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,7 +199,6 @@
 		94687C152BF0A0D90030A659 /* RickMorty */ = {
 			isa = PBXGroup;
 			children = (
-				03B29F142C81F3E500C5AA03 /* Core */,
 				03B29EFB2C81183500C5AA03 /* Components */,
 				946CDEAA2C01B31200939997 /* Utilities */,
 				946CB69F2BF4820200F87F12 /* DependencyInjection */,

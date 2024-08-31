@@ -23,7 +23,7 @@ final class CharacterListViewModel: ViewModel {
     @Dependency(\.characterDataUseCase)
     private var characterDataUseCase
     
-    @Dependency(\.coreDataService)
+    @Dependency(\.localService)
     private var coreDataService
     
     
@@ -196,9 +196,14 @@ extension CharacterListViewModel{
     
     private func resetFirstSeenFilter(characterData: CharacterDataEntity){
         DispatchQueue.main.async {
-            self.firstSeenList = Array(Set(characterData.results.compactMap({$0.episode[0].replacingOccurrences(of: "https://rickandmortyapi.com/api/episode/", with: "Episode ")})))
+            // Safely handle the case where `episode` might be nil
+            self.firstSeenList = Array(Set(characterData.results.compactMap { result in
+                // Use optional chaining to safely access the first episode if it exists
+                result.episode.first?.replacingOccurrences(of: "https://rickandmortyapi.com/api/episode/", with: "Episode ")
+            }))
             self.selectedFirstSeen = ""
             self.firstSeenIn = false
         }
+
     }
 }
