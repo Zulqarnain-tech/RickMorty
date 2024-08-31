@@ -172,7 +172,6 @@
 		94687C0A2BF0A0D90030A659 = {
 			isa = PBXGroup;
 			children = (
-				03B29F012C81E9A000C5AA03 /* RickMortyCDModel.xcdatamodeld */,
 				94687C4E2BF0A6660030A659 /* Data */,
 				94687C4C2BF0A6660030A659 /* DesignSystem */,
 				94687C4D2BF0A6660030A659 /* Domain */,
@@ -199,6 +198,7 @@
 		94687C152BF0A0D90030A659 /* RickMorty */ = {
 			isa = PBXGroup;
 			children = (
+				03B29F012C81E9A000C5AA03 /* RickMortyCDModel.xcdatamodeld */,
 				03B29EFB2C81183500C5AA03 /* Components */,
 				946CDEAA2C01B31200939997 /* Utilities */,
 				946CB69F2BF4820200F87F12 /* DependencyInjection */,
@@ -911,8 +911,7 @@
 				03B29F022C81E9A000C5AA03 /* RickMortyCDModel.xcdatamodel */,
 			);
 			currentVersion = 03B29F022C81E9A000C5AA03 /* RickMortyCDModel.xcdatamodel */;
-			name = RickMortyCDModel.xcdatamodeld;
-			path = /Users/zulqarnainnaveed/Documents/Deliver/RickMorty/RickMortyCDModel.xcdatamodeld;
+			path = RickMortyCDModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
