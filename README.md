@@ -23,7 +23,7 @@ Displays detailed information about a character
 #### Modern Concurrency
 #### Core Data
 
-
+## App Screen Shot
 <img width="337" alt="Screenshot 2024-08-31 at 11 46 37 PM" src="https://github.com/user-attachments/assets/67a1584f-995a-4aef-a74e-2ea152863eb7">
 
 
