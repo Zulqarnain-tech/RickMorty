@@ -68,27 +68,17 @@ struct MainScreenView: View {
                             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         }
                         .frame(height: 48)
-                        // start card
-                        DropDownView(heading: "Last known location", display: $viewModel.knownLocation, list: [
-                           "Nuptia 1",
-                           "Nuptia 2",
-                           "Nuptia 3",
-                           "Nuptia 4",
-                        ])
+                        
+                        DropDownView(heading: "Last known location", display: $viewModel.knownLocation, list: viewModel.lastKnownLocation, selectedText: $viewModel.selectedKnown)
                         .padding(.top)
                         
-                        DropDownView(heading: "First seen in", display: $viewModel.firstSeenIn, list: [
-                           "All",
-                           "Get Schwifty",
-                           "Interdimensional Cable 2: Tempting Fate",
-                           "One Crew Over the Crewcoo's Morty"
-                        ])
+                        DropDownView(heading: "First seen in", display: $viewModel.firstSeenIn, list: viewModel.firstSeenList, selectedText: $viewModel.selectedFirstSeen)
                         .padding(.top)
-                        //  end  card
+                        
                         
                         VStack(spacing: 24){
-                            ForEach(0..<viewModel.state.charactersList.count, id: \.self) { index in
-                                let characterInfo = viewModel.state.charactersList[index]
+                            ForEach(0..<viewModel.charactersList.count, id: \.self) { index in
+                                let characterInfo = viewModel.charactersList[index]
                                 CharacterInfoCardView(characterInfo: characterInfo, display: viewModel.tappedCharacter == index, imageHeight: geometry.size.width, showDetail: {
                                     withAnimation {
                                         if viewModel.tappedCharacter != index{
@@ -135,7 +125,8 @@ struct CharacterInfoCardView: View {
     var body: some View{
             VStack(alignment: .leading){
                 CustomImageView(mediaUrl: characterInfo.image, imageHeight: infoType == .partial ? imageHeight * 0.4 : imageHeight * 0.8)
-                    
+                    .clipped()
+                    .contentShape(Rectangle())
 
                 VStack(alignment: .leading, spacing: 10){
                     HStack{
@@ -216,7 +207,8 @@ struct CustomImageView: View {
                 }
             }
             .frame(height: imageHeight)
-            .clipped()
+            //.clipped()
+            
         }
         .frame(height: imageHeight)
     }
@@ -226,8 +218,8 @@ struct CustomImageView: View {
 struct DropDownView: View {
     let heading: String
     @Binding var display: Bool
-    let list: [String]
-    @State private var selectedText: String = ""
+    var list: [String]
+    @Binding var selectedText: String
     var body: some View{
         VStack(alignment: .leading, spacing: 10){
             HStack{
@@ -245,15 +237,24 @@ struct DropDownView: View {
             if display {
                 VStack(alignment: .leading,spacing: 10){
                     //
-                    VStack(alignment: .leading,spacing: 8) {
-                        ForEach(0..<list.count, id: \.self) { index in
-                            Text(list[index])
-                                .font(.montserratMedium(size: 12))
-                                .foregroundColor(.white)
-                                .onTapGesture {
-                                    selectedText = list[index]
-                                }
+                    ScrollView(showsIndicators: true){
+                        VStack(alignment: .leading,spacing: 8) {
+                            ForEach(0..<list.count, id: \.self) { index in
+                                Text(list[index])
+                                    .font(.montserratMedium(size: 12))
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        withAnimation(.easeInOut(duration: 0.5)) {
+                                            selectedText = list[index]
+                                            display.toggle()
+                                        }
+                                        
+                                    }
+                            }
                         }
+                        
                     }
                 }
                 .frame(height: 120)

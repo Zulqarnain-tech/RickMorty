@@ -18,7 +18,6 @@
 		03B29F032C81E9A000C5AA03 /* RickMortyCDModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03B29F012C81E9A000C5AA03 /* RickMortyCDModel.xcdatamodeld */; };
 		940C54B52BF1DF15007A26A2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940C54B42BF1DF15007A26A2 /* Environment.swift */; };
 		940C54B92BF1DF3D007A26A2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940C54B82BF1DF3D007A26A2 /* Configuration.swift */; };
-		94282D112C01C8B6005B3286 /* KeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 94282D102C01C8B6005B3286 /* KeychainWrapper */; };
 		94687C172BF0A0D90030A659 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94687C162BF0A0D90030A659 /* AppDelegate.swift */; };
 		94687C192BF0A0D90030A659 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94687C182BF0A0D90030A659 /* SceneDelegate.swift */; };
 		94687C202BF0A0DA0030A659 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94687C1F2BF0A0DA0030A659 /* Assets.xcassets */; };
@@ -118,7 +117,6 @@
 				946CDEC82C01C56600939997 /* LocalPersistanceMock in Frameworks */,
 				94687C672BF0A85E0030A659 /* Domain in Frameworks */,
 				946CDEC62C01C56200939997 /* LocalPersistance in Frameworks */,
-				94282D112C01C8B6005B3286 /* KeychainWrapper in Frameworks */,
 				946CB6A52BF4823700F87F12 /* Dependencies in Frameworks */,
 				94687C692BF0A8A80030A659 /* DomainMock in Frameworks */,
 				94687C4B2BF0A4FD0030A659 /* Networking in Frameworks */,
@@ -379,7 +377,6 @@
 				946CB6A42BF4823700F87F12 /* Dependencies */,
 				946CDEC52C01C56200939997 /* LocalPersistance */,
 				946CDEC72C01C56600939997 /* LocalPersistanceMock */,
-				94282D102C01C8B6005B3286 /* KeychainWrapper */,
 			);
 			productName = iOSAppMVVMTemplate;
 			productReference = 94687C132BF0A0D90030A659 /* Rick Morty.app */;
@@ -455,7 +452,6 @@
 			mainGroup = 94687C0A2BF0A0D90030A659;
 			packageReferences = (
 				946CB69E2BF481C700F87F12 /* XCRemoteSwiftPackageReference "swift-dependencies" */,
-				94282D0F2C01C8B5005B3286 /* XCRemoteSwiftPackageReference "KeychainWrapper" */,
 			);
 			productRefGroup = 94687C142BF0A0D90030A659 /* Products */;
 			projectDirPath = "";
@@ -870,14 +866,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		94282D0F2C01C8B5005B3286 /* XCRemoteSwiftPackageReference "KeychainWrapper" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/puretears/KeychainWrapper";
-			requirement = {
-				kind = exactVersion;
-				version = 1.2.1;
-			};
-		};
 		946CB69E2BF481C700F87F12 /* XCRemoteSwiftPackageReference "swift-dependencies" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-dependencies.git";
@@ -889,11 +877,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		94282D102C01C8B6005B3286 /* KeychainWrapper */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 94282D0F2C01C8B5005B3286 /* XCRemoteSwiftPackageReference "KeychainWrapper" */;
-			productName = KeychainWrapper;
-		};
 		94687C4A2BF0A4FD0030A659 /* Networking */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Networking;

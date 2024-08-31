@@ -16,16 +16,14 @@ let package = Package(
             targets: ["LocalPersistanceMock"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/puretears/KeychainWrapper", exact: "1.2.1")
+        // Remove KeychainWrapper dependency
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "LocalPersistance",
-            dependencies: [
-                .product(name: "KeychainWrapper", package: "KeychainWrapper")
-            ]
+            dependencies: [] // No dependencies
         ),
         .target(
             name: "LocalPersistanceMock",

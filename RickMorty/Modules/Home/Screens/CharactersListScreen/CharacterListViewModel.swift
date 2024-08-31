@@ -6,7 +6,7 @@ import Dependencies
 final class CharacterListViewModel: ViewModel {
     struct State: Equatable {
         var characterData: CharacterDataEntity?
-        var charactersList: [Result] = []
+        var originalCharacterList: [Result] = []
         var error: Toast?
         var isLoading = false
         var sliderImages: [String] = ["img_home1", "img_home2", "img_home3"]
@@ -29,8 +29,20 @@ final class CharacterListViewModel: ViewModel {
 
     private let onCharacterSelected: (Result) -> Void
 
-    
-
+    @Published var charactersList: [Result] = []
+    @Published var lastKnownLocation: [String] = []
+    @Published var firstSeenList: [String] = []
+    @Published var selectedKnown: String = "All"{
+        didSet{
+            if selectedKnown == "All"{
+                charactersList = self.state.originalCharacterList
+            }else{
+                self.charactersList = self.state.originalCharacterList.filter { $0.location.name == selectedKnown }
+            }
+            
+        }
+    }
+    @Published var selectedFirstSeen: String = ""
     @Published var searchText: String = ""
     @Published var isEdit: Bool = false
     @Published var selectedStatus: CharacterStatusSegment = .alive {
@@ -95,6 +107,7 @@ final class CharacterListViewModel: ViewModel {
         let characterData: CharacterDataEntity? =  coreDataService.fetch()
         if let characterData = characterData, characterData.results.count != 0 {
             await fillCharactersList(characterData.results)
+            resetLastKnownLocationFilter(characterData: characterData)
         } else {
             if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
                 await fetchCharacterDataRemote( name: searchText, species: selectedSpecies.title, status: selectedStatus.title)
@@ -112,13 +125,22 @@ final class CharacterListViewModel: ViewModel {
             await handleLoading(false)
             await fillCharactersList(characterData.results)
             coreDataService.create(record: characterData)
+            resetLastKnownLocationFilter(characterData: characterData)
+            
         } catch let error {
             await handleLoading(false)
             await handleError(error)
         }
     }
 
-    
+    private func resetLastKnownLocationFilter(characterData: CharacterDataEntity){
+        DispatchQueue.main.async {
+            self.lastKnownLocation = Array(Set(characterData.results.map { $0.location.name }))
+            self.lastKnownLocation.insert("All", at: 0)
+            self.selectedKnown = "All"
+            self.knownLocation = false
+        }
+    }
 
     @MainActor
     private func handleLoading(_ isLoading: Bool) {
@@ -139,6 +161,11 @@ final class CharacterListViewModel: ViewModel {
     
      @MainActor
      private func fillCharactersList(_ characters: [Result]) {
-         state.charactersList = characters
+         DispatchQueue.main.async {
+             self.charactersList = characters
+             self.state.originalCharacterList = characters
+         }
+             
+         
      }
 }
