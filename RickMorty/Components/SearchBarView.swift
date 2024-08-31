@@ -34,6 +34,7 @@ struct SearchBarView: View, KeyboardReadable{
                 .frame(height: 30)
                 .padding(7)
                 //.padding(.horizontal, 32)
+                .foregroundColor(.white)
                 .background(Color.tunaColor)
                 .cornerRadius(10)
                 .keyboardType(.webSearch)
